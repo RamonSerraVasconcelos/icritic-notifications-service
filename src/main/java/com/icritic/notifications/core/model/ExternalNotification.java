@@ -17,8 +17,8 @@ public class ExternalNotification {
 
     private String notificationId;
     private String topic;
-    Long notifierId;
-    String email;
-    boolean sent;
-    LocalDateTime createdAt;
+    private Long notifierId;
+    private String email;
+    private boolean sent;
+    private LocalDateTime createdAt;
 }

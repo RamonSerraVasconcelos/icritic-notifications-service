@@ -4,5 +4,5 @@ import com.icritic.notifications.core.model.Email;
 
 public interface SendEmailBoundary {
 
-    void execute(Email email);
+    void execute(Email email) throws Exception;
 }
