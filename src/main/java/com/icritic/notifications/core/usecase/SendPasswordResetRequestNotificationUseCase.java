@@ -43,8 +43,8 @@ public class SendPasswordResetRequestNotificationUseCase {
             saveNotificationBoundary.execute(notification);
 
             String emailBody = "<h1>Password reset request</h1>" +
-                    "<p>We received a email change request for your account</p>" +
-                    "<a href=${link} target=\"_blank\">Click here</a> if you didn't make this request!";
+                    "<p>If you didn't request a password reset, ignore this email.</p>" +
+                    "<a href=${link} target=\"_blank\">Click here</a> to reset your password!";
 
             Email email = Email.builder()
                     .from("no-reply@icritic.com")
