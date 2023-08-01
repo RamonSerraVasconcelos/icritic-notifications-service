@@ -23,9 +23,6 @@ public class SendEmailNotificationUseCase {
             sendEmailBoundary.execute(email);
 
             notification.setSent(true);
-        } catch (NullPointerException e) {
-            notification.setSent(false);
-            log.error("Error sending email notification: ", e);
         } catch (Exception e) {
             notification.setSent(false);
             log.error("Error sending email notification to: {}", email.getTo(), e);
