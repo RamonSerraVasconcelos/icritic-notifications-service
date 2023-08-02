@@ -38,7 +38,7 @@ public class SendPasswordResetRequestNotificationUseCase {
 
             sendEmailNotificationUseCase.execute(email, notification);
         } catch (Exception e) {
-            log.error("Error sending password reset request notification to email: {}", passwordResetRequest.getEmail(), e);
+            log.error("Error sending password reset request notification to email: [{}]. Error: [{}]", passwordResetRequest.getEmail(), e.getMessage());
         }
     }
 }
