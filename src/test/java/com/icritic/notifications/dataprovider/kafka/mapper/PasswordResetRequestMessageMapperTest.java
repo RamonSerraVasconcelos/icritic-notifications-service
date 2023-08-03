@@ -1,4 +1,4 @@
-package com.icritic.notifications.dataprovider.database.mapper;
+package com.icritic.notifications.dataprovider.kafka.mapper;
 
 import com.icritic.notifications.core.model.PasswordResetRequest;
 import com.icritic.notifications.dataprovider.database.fixture.PasswordResetRequestMessageFixture;
