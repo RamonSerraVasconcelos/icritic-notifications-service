@@ -2,6 +2,7 @@ package com.icritic.notifications.config;
 
 import com.icritic.notifications.config.properties.ApplicationProperties;
 import com.icritic.notifications.config.properties.KafkaProperties;
+import com.icritic.notifications.dataprovider.kafka.entity.PasswordResetMessage;
 import com.icritic.notifications.dataprovider.kafka.entity.PasswordResetRequestMessage;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
@@ -49,9 +50,27 @@ public class KafkaConsumerConfig {
     }
 
     @Bean
-    public ConcurrentKafkaListenerContainerFactory<String, PasswordResetRequestMessage> kafkaListenerContainerFactory() {
+    public ConcurrentKafkaListenerContainerFactory<String, PasswordResetRequestMessage> kafkaPasswordResetRequestListenerContainerFactory() {
         ConcurrentKafkaListenerContainerFactory<String, PasswordResetRequestMessage> factory = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(passwordResetRequestKafkaConsumerFactory());
+        return factory;
+    }
+
+    @Bean
+    public ConsumerFactory<String, PasswordResetMessage> passwordResetKafkaConsumerFactory() {
+        DefaultJackson2JavaTypeMapper jsonMapper = new DefaultJackson2JavaTypeMapper();
+        jsonMapper.addTrustedPackages("*");
+
+        JsonDeserializer jsonDeserializer = new JsonDeserializer<>(PasswordResetMessage.class);
+        jsonDeserializer.setTypeMapper(jsonMapper);
+
+        return new DefaultKafkaConsumerFactory<>( consumerConfigs(jsonDeserializer), new StringDeserializer(), jsonDeserializer);
+    }
+
+    @Bean
+    public ConcurrentKafkaListenerContainerFactory<String, PasswordResetMessage> kafkaPasswordResetListenerContainerFactory() {
+        ConcurrentKafkaListenerContainerFactory<String, PasswordResetMessage> factory = new ConcurrentKafkaListenerContainerFactory<>();
+        factory.setConsumerFactory(passwordResetKafkaConsumerFactory());
         return factory;
     }
 }

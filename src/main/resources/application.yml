@@ -19,6 +19,7 @@ spring:
   application:
     properties:
       kafka-password-reset-request-topic: ${ICRITIC_KAFKA_PASSWORD_RESET_REQUEST_TOPIC:password-reset-request}
+      kafka-password-reset-topic: ${ICRITIC_KAFKA_PASSWORD_RESET_TOPIC:password-reset}
       kafka-group-id: ${ICRITIC_KAFKA_GROUP_IP:notifications}
 server:
   port: 8082
