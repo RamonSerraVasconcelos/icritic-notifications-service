@@ -1,9 +1,8 @@
 package com.icritic.notifications.dataprovider.kafka.mapper;
 
 import com.icritic.notifications.core.model.PasswordResetRequest;
-import com.icritic.notifications.dataprovider.database.fixture.PasswordResetRequestMessageFixture;
+import com.icritic.notifications.dataprovider.kafka.fixture.PasswordResetRequestMessageFixture;
 import com.icritic.notifications.dataprovider.kafka.entity.PasswordResetRequestMessage;
-import com.icritic.notifications.dataprovider.kafka.mapper.PasswordResetRequestMessageMapper;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
