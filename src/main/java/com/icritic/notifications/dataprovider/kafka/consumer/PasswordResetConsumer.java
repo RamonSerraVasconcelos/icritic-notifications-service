@@ -15,7 +15,7 @@ public class PasswordResetConsumer {
 
     private final SendPasswordResetNotificationUseCase sendPasswordResetNotificationUseCase;
 
-    @KafkaListener(topics = "${spring.application.properties.kafka-password-reset-topic}", groupId = "${spring.application.properties.kafka-group-id}", containerFactory="kafkaPasswordResetListenerContainerFactory")
+    @KafkaListener(topics = "${spring.application.properties.kafka-password-reset-topic}", groupId = "${spring.application.properties.kafka-group-id}", containerFactory="passwordResetListenerContainerFactory")
     public void execute(PasswordResetMessage passwordResetMessage) {
         try {
             log.info("Received password reset message");

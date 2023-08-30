@@ -12,10 +12,10 @@ import org.springframework.kafka.support.mapping.DefaultJackson2JavaTypeMapper;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
 
 @Configuration
-public class KafkaPasswordResetRequestConsumerConfig {
+public class PasswordResetRequestConsumerConfig {
 
     @Autowired
-    private KafkaConsumerConfig kafkaConsumerConfig;
+    private ConsumersConfig consumersConfig;
 
     @Bean
     public ConsumerFactory<String, PasswordResetRequestMessage> passwordResetRequestKafkaConsumerFactory() {
@@ -25,11 +25,11 @@ public class KafkaPasswordResetRequestConsumerConfig {
         JsonDeserializer jsonDeserializer = new JsonDeserializer<>(PasswordResetRequestMessage.class);
         jsonDeserializer.setTypeMapper(jsonMapper);
 
-        return new DefaultKafkaConsumerFactory<>(kafkaConsumerConfig.consumerConfigs(jsonDeserializer), new StringDeserializer(), jsonDeserializer);
+        return new DefaultKafkaConsumerFactory<>(consumersConfig.consumerConfigs(jsonDeserializer), new StringDeserializer(), jsonDeserializer);
     }
 
     @Bean
-    public ConcurrentKafkaListenerContainerFactory<String, PasswordResetRequestMessage> kafkaPasswordResetRequestListenerContainerFactory() {
+    public ConcurrentKafkaListenerContainerFactory<String, PasswordResetRequestMessage> passwordResetRequestListenerContainerFactory() {
         ConcurrentKafkaListenerContainerFactory<String, PasswordResetRequestMessage> factory = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(passwordResetRequestKafkaConsumerFactory());
         return factory;
