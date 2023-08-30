@@ -22,7 +22,7 @@ public class PasswordResetConsumerConfig {
         DefaultJackson2JavaTypeMapper jsonMapper = new DefaultJackson2JavaTypeMapper();
         jsonMapper.addTrustedPackages("*");
 
-        JsonDeserializer jsonDeserializer = new JsonDeserializer<>(PasswordResetMessage.class);
+        JsonDeserializer<PasswordResetMessage> jsonDeserializer = new JsonDeserializer<>(PasswordResetMessage.class);
         jsonDeserializer.setTypeMapper(jsonMapper);
 
         return new DefaultKafkaConsumerFactory<>( consumersConfig.consumerConfigs(jsonDeserializer), new StringDeserializer(), jsonDeserializer);
