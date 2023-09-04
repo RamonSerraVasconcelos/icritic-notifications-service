@@ -12,5 +12,7 @@ import org.springframework.context.annotation.Configuration;
 public class ApplicationProperties {
 
     private String kafkaPasswordResetRequestTopic;
+    private String kafkaPasswordResetTopic;
+    private String kafkaEmailResetRequestTopic;
     private String kafkaGroupId;
 }

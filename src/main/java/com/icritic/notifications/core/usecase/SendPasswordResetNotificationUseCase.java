@@ -20,7 +20,7 @@ public class SendPasswordResetNotificationUseCase {
 
     public void execute(PasswordReset passwordReset) {
         try {
-            ExternalNotification notification = ExternalNotificationUtils.buildNotification(applicationProperties.getKafkaPasswordResetRequestTopic(),
+            ExternalNotification notification = ExternalNotificationUtils.buildNotification(applicationProperties.getKafkaPasswordResetTopic(),
                     passwordReset.getUserId(), passwordReset.getEmail());
 
             String emailBody = "<h1>Password reset notification</h1>" +

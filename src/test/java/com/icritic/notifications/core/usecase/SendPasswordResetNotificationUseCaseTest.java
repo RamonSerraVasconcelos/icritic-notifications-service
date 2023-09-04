@@ -48,7 +48,7 @@ class SendPasswordResetNotificationUseCaseTest {
     void givenValidPasswordReset_thenBuildEmailAndNotification_andCallUseCases() throws Exception {
         PasswordReset passwordReset = PasswordResetFixture.load();
 
-        when(applicationProperties.getKafkaPasswordResetRequestTopic()).thenReturn("reset-password-topic");
+        when(applicationProperties.getKafkaPasswordResetTopic()).thenReturn("reset-password-topic");
 
         sendPasswordResetNotificationUseCase.execute(passwordReset);
 
