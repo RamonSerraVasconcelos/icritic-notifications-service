@@ -1,14 +1,13 @@
 package com.icritic.notifications.core.usecase;
 
-import ch.qos.logback.classic.Logger;
 import ch.qos.logback.classic.LoggerContext;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.read.ListAppender;
 import com.icritic.notifications.config.properties.ApplicationProperties;
-import com.icritic.notifications.core.fixture.PasswordResetFixture;
+import com.icritic.notifications.core.fixture.EmailResetRequestFixture;
 import com.icritic.notifications.core.model.Email;
+import com.icritic.notifications.core.model.EmailResetRequest;
 import com.icritic.notifications.core.model.ExternalNotification;
-import com.icritic.notifications.core.model.PasswordReset;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -21,16 +20,14 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class SendPasswordResetNotificationUseCaseTest {
+class SendEmailResetRequestNotificationUseCaseTest {
 
     @InjectMocks
-    private SendPasswordResetNotificationUseCase sendPasswordResetNotificationUseCase;
+    private SendEmailResetRequestNotificationUseCase sendEmailResetRequestNotificationUseCase;
 
     @Mock
     private SendEmailNotificationUseCase sendEmailNotificationUseCase;
@@ -45,38 +42,34 @@ class SendPasswordResetNotificationUseCaseTest {
     private ArgumentCaptor<ExternalNotification> notificationArgumentCaptor;
 
     @Test
-    void givenValidPasswordReset_thenBuildEmailAndNotification_andCallUseCases() throws Exception {
-        PasswordReset passwordReset = PasswordResetFixture.load();
+    void givenValidEmailResetRequest_thenCallBuildEmailAndNotification_andCallSendEmailNotificationUseCase() throws Exception {
+        EmailResetRequest emailResetRequest = EmailResetRequestFixture.load();
 
-        when(applicationProperties.getKafkaPasswordResetTopic()).thenReturn("reset-password-topic");
-
-        sendPasswordResetNotificationUseCase.execute(passwordReset);
+        sendEmailResetRequestNotificationUseCase.execute(emailResetRequest);
 
         verify(sendEmailNotificationUseCase).execute(emailArgumentCaptor.capture(), notificationArgumentCaptor.capture());
-
-        assertEquals(passwordReset.getEmail(), emailArgumentCaptor.getValue().getTo());
-        assertEquals(passwordReset.getUserId(), notificationArgumentCaptor.getValue().getNotifierId());
+        assertEquals(emailResetRequest.getEmail(), emailArgumentCaptor.getValue().getTo());
+        assertEquals(emailResetRequest.getUserId(), notificationArgumentCaptor.getValue().getNotifierId());
     }
 
     @Test
     void givenException_thenLogError() throws Exception {
-        PasswordReset passwordReset = PasswordResetFixture.load();
-        String logError = "[ERROR] Error sending password reset notification to email: [test@test.test]. Error: [Usecase error]";
+        EmailResetRequest emailResetRequest = EmailResetRequestFixture.load();
+        String logError = "[ERROR] Error sending email reset request notification to email: [test@test.test]. Error: [Usecase error]";
 
-        Logger logger = (Logger) LoggerFactory.getLogger(SendPasswordResetNotificationUseCase.class);
         LoggerContext loggerContext = (LoggerContext) LoggerFactory.getILoggerFactory();
         ListAppender<ILoggingEvent> listAppender = new ListAppender<>();
         listAppender.start();
-        loggerContext.getLogger("com.icritic.notifications.core.usecase.SendPasswordResetNotificationUseCase").addAppender(listAppender);
+        loggerContext.getLogger("com.icritic.notifications.core.usecase.SendEmailResetRequestNotificationUseCase").addAppender(listAppender);
 
-        doThrow(new RuntimeException("Usecase error")).when(sendEmailNotificationUseCase).execute(any(), any());
+        doThrow(new RuntimeException("Usecase error")).when(sendEmailNotificationUseCase).execute(emailArgumentCaptor.capture(), notificationArgumentCaptor.capture());
 
-        sendPasswordResetNotificationUseCase.execute(passwordReset);
+        sendEmailResetRequestNotificationUseCase.execute(emailResetRequest);
 
         List<ILoggingEvent> loggingEvents = listAppender.list;
         String loggedError = loggingEvents.toArray()[0].toString();
 
-        verify(sendEmailNotificationUseCase).execute(any(), any());
+        verify(sendEmailNotificationUseCase).execute(emailArgumentCaptor.capture(), notificationArgumentCaptor.capture());
         assertEquals(logError, loggedError);
     }
 }

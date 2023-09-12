@@ -1,4 +1,4 @@
-package com.icritic.notifications.config.properties;
+package com.icritic.notifications.config.kafka.properties;
 
 import lombok.Getter;
 import lombok.Setter;
