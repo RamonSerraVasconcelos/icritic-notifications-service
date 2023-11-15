@@ -13,6 +13,7 @@ public class ApplicationProperties {
 
     private String kafkaPasswordResetRequestTopic;
     private String kafkaPasswordResetTopic;
+    private String kafkaPasswordChangeTopic;
     private String kafkaEmailResetRequestTopic;
     private String kafkaEmailResetTopic;
     private String kafkaGroupId;
