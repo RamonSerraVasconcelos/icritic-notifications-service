@@ -7,9 +7,9 @@ import com.icritic.notifications.core.model.ExternalNotification;
 import com.icritic.notifications.core.utils.ExternalNotificationUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 @Slf4j
 @RequiredArgsConstructor
 public class SendEmailResetNotificationUseCase {
