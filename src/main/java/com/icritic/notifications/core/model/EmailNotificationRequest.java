@@ -6,19 +6,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @Builder
-public class ExternalNotification {
+public class EmailNotificationRequest {
 
-    private String notificationId;
+    private Long userId;
     private String notificationSubjectId;
-    private Long notifierId;
     private String email;
-    private boolean sent;
-    private LocalDateTime createdAt;
+    private String subject;
+    private String body;
 }

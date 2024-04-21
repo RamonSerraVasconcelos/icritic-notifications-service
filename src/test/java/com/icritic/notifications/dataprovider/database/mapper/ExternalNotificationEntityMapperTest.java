@@ -18,7 +18,7 @@ class ExternalNotificationEntityMapperTest {
         ExternalNotificationEntity externalNotificationEntity = mapper.externalNotificationToExternalNotificationEntity(externalNotification);
 
         assertEquals(externalNotification.getNotificationId(), externalNotificationEntity.getNotificationId());
-        assertEquals(externalNotification.getTopic(), externalNotificationEntity.getTopic());
+        assertEquals(externalNotification.getNotificationSubjectId(), externalNotificationEntity.getNotificationSubjectId());
         assertEquals(externalNotification.getNotifierId(), externalNotificationEntity.getNotifierId());
         assertEquals(externalNotification.getEmail(), externalNotificationEntity.getEmail());
         assertEquals(externalNotification.getCreatedAt(), externalNotificationEntity.getCreatedAt());

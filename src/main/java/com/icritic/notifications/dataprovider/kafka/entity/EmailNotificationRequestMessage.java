@@ -1,4 +1,4 @@
-package com.icritic.notifications.core.model;
+package com.icritic.notifications.dataprovider.kafka.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -6,19 +6,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @Builder
-public class ExternalNotification {
+public class EmailNotificationRequestMessage {
 
-    private String notificationId;
+    private Long userId;
     private String notificationSubjectId;
-    private Long notifierId;
     private String email;
-    private boolean sent;
-    private LocalDateTime createdAt;
+    private String subject;
+    private String body;
 }

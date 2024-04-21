@@ -11,6 +11,4 @@ public abstract class ExternalNotificationEntityMapper {
     public static final ExternalNotificationEntityMapper INSTANCE = Mappers.getMapper(ExternalNotificationEntityMapper.class);
 
     public abstract ExternalNotificationEntity externalNotificationToExternalNotificationEntity(ExternalNotification externalNotification);
-
-    public abstract ExternalNotification externalNotificationEntityToExternalNotification(ExternalNotificationEntity externalNotificationEntity);
 }

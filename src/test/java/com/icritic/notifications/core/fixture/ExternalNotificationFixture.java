@@ -10,7 +10,7 @@ public class ExternalNotificationFixture {
     public static ExternalNotification load() {
         return ExternalNotification.builder()
                 .notificationId(UUID.randomUUID().toString())
-                .topic("test")
+                .notificationSubjectId("test")
                 .notifierId(1L)
                 .email("test@test.test")
                 .createdAt(LocalDateTime.now())
