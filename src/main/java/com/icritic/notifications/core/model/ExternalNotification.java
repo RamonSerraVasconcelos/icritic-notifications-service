@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 public class ExternalNotification {
 
     private String notificationId;
-    private String topic;
+    private String notificationSubjectId;
     private Long notifierId;
     private String email;
     private boolean sent;

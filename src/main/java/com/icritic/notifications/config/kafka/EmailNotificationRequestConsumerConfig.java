@@ -1,6 +1,6 @@
 package com.icritic.notifications.config.kafka;
 
-import com.icritic.notifications.dataprovider.kafka.entity.EmailResetRequestMessage;
+import com.icritic.notifications.dataprovider.kafka.entity.EmailNotificationRequestMessage;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -12,26 +12,26 @@ import org.springframework.kafka.support.mapping.DefaultJackson2JavaTypeMapper;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
 
 @Configuration
-public class EmailResetRequestConsumerConfig {
+public class EmailNotificationRequestConsumerConfig {
 
     @Autowired
     private ConsumersConfig consumersConfig;
 
     @Bean
-    public ConsumerFactory<String, EmailResetRequestMessage> emailResetRequestKafkaConsumerFactory() {
+    public ConsumerFactory<String, EmailNotificationRequestMessage> emailNotificationRequestKafkaConsumerFactory() {
         DefaultJackson2JavaTypeMapper jsonMapper = new DefaultJackson2JavaTypeMapper();
         jsonMapper.addTrustedPackages("*");
 
-        JsonDeserializer<EmailResetRequestMessage> jsonDeserializer = new JsonDeserializer<>(EmailResetRequestMessage.class);
+        JsonDeserializer<EmailNotificationRequestMessage> jsonDeserializer = new JsonDeserializer<>(EmailNotificationRequestMessage.class);
         jsonDeserializer.setTypeMapper(jsonMapper);
 
-        return new DefaultKafkaConsumerFactory<>( consumersConfig.consumerConfigs(jsonDeserializer), new StringDeserializer(), jsonDeserializer);
+        return new DefaultKafkaConsumerFactory<>(consumersConfig.consumerConfigs(jsonDeserializer), new StringDeserializer(), jsonDeserializer);
     }
 
     @Bean
-    public ConcurrentKafkaListenerContainerFactory<String, EmailResetRequestMessage> emailResetRequestListenerContainerFactory() {
-        ConcurrentKafkaListenerContainerFactory<String, EmailResetRequestMessage> factory = new ConcurrentKafkaListenerContainerFactory<>();
-        factory.setConsumerFactory(emailResetRequestKafkaConsumerFactory());
+    public ConcurrentKafkaListenerContainerFactory<String, EmailNotificationRequestMessage> emailNotificationRequestListenerContainerFactory() {
+        ConcurrentKafkaListenerContainerFactory<String, EmailNotificationRequestMessage> factory = new ConcurrentKafkaListenerContainerFactory<>();
+        factory.setConsumerFactory(emailNotificationRequestKafkaConsumerFactory());
         return factory;
     }
 }

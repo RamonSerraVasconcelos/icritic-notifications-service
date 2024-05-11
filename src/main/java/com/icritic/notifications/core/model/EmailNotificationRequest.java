@@ -11,8 +11,11 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-public class PasswordChange {
+public class EmailNotificationRequest {
 
     private Long userId;
+    private String notificationSubjectId;
     private String email;
+    private String subject;
+    private String body;
 }

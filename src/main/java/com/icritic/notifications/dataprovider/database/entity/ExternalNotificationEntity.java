@@ -20,7 +20,7 @@ public class ExternalNotificationEntity {
 
     @Id
     private String notificationId;
-    private String topic;
+    private String notificationSubjectId;
     private Long notifierId;
     private String email;
     private boolean sent;

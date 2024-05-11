@@ -6,9 +6,9 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ExternalNotificationUtils {
-    public static ExternalNotification buildNotification(String topic, Long notifierId, String email) {
+    public static ExternalNotification buildNotification(String notificationSubjectId, Long notifierId, String email) {
         return ExternalNotification.builder()
-                .topic(topic)
+                .notificationSubjectId(notificationSubjectId)
                 .notifierId(notifierId)
                 .email(email)
                 .build();
